@@ -5,10 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout de la branch qui est à l'origine de l'event
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Installation de python 3.8
-      - uses: actions/setup-python@v2
+        uses: actions/setup-python@v2
         with:
           python-version: '3.8'
 
@@ -20,6 +20,6 @@ jobs:
 
       - name: Execution du linter sur app/
         run: pipenv run pylint app
-        
+
       - name: Lancement des tests
         run: pipenv run nosetests
