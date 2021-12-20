@@ -1,0 +1,21 @@
+name: Installation puis lancement du linter et enfin test
+on: [push, pull_request]
+jobs:
+  check-python-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout de la branch qui est à l'origine de l'event
+      - uses: actions/checkout@v2
+      - name: Installation de python 3.8
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+      - name: Installation des dependencies (comme en local)
+        run: |
+          python -m pip install --upgrade pip
+          pip install pipenv
+          pipenv install --dev
+      - name: Execution du linter sur app/
+        run: pipenv run pylint app
+      - name: Lancement des tests
+        run: pipenv run nosetests
